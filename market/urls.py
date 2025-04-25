@@ -1,10 +1,8 @@
 from django.urls import include, path
 from django.contrib import admin
-
 from django.conf import settings
 from django.conf.urls.static import static
-
-
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,8 +27,12 @@ urlpatterns = [
     path('consultation/', include('consultation.urls')),
     path('fertilizer/', include('fertilizer.urls')),
     path('blog/', include('blog.urls')),
+    
+    path("chatbot/", include("chatbot_ai.urls", namespace='chatbot')),
 
 
+    # Serve favicon.ico
+    path('favicon.ico', RedirectView.as_view(url=settings.MEDIA_URL + 'proj/favicon.ico', permanent=True)),
 ]
 
 if settings.DEBUG:

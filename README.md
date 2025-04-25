@@ -13,6 +13,7 @@ Follow these steps to set up and run the project locally:
     On Windows:
     ```bash
     .\.venv\Scripts\Activate
+    source .env
     ```
     On macOS/Linux:
     ```bash

@@ -1,0 +1,15 @@
+{% extends 'Account/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block extra_head %}
+    <title>Farmer weather</title>
+    <link rel="stylesheet" href="{% static 'chatbot_ai/weather.css' %}">
+    <script type="module" crossorigin src="{% static 'chatbot_ai/weather.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="root"></div>
+{% endblock content %}

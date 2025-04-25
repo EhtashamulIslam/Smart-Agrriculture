@@ -1,0 +1,14 @@
+# openai config 1
+OPENAI_API_KEY=<YOUR_GITHUB_TOKEN>
+OPENAI_API_ENDPOINT="https://models.github.ai/inference"
+OPENAI_API_MODEL="openai/gpt-4.1"
+
+# # openai config 2 example
+# OPENAI_API_KEY= <your open api key>
+# OPENAI_API_ENDPOINT=https://api.openai.com/v1/
+# OPENAI_API_MODEL=gpt-4
+
+# # openai config 3 example
+# OPENAI_API_KEY=<your open api key ii>
+# OPENAI_API_ENDPOINT=https://api.openai.com/v1/
+# OPENAI_API_MODEL=gpt-4o-mini
