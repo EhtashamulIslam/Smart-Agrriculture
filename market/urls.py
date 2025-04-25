@@ -28,6 +28,7 @@ urlpatterns = [
     path('feedback/', include('feedback.urls')),
     path('consultation/', include('consultation.urls')),
     path('fertilizer/', include('fertilizer.urls')),
+    path('blog/', include('blog.urls')),
 
 
 ]

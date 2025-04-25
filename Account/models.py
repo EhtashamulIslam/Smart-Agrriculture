@@ -8,6 +8,7 @@ class Profile(models.Model):
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
     address = models.TextField(blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
