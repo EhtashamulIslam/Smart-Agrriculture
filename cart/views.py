@@ -76,6 +76,7 @@ def decrement_units(request, cart_item_id):
     return redirect('cart:cart_detail')
 
 
+#wishlist done by krishno
 @login_required
 def add_to_wishlist(request, product_id):
     product = get_object_or_404(Product, id=product_id)

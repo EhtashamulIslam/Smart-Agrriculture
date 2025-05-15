@@ -28,3 +28,5 @@ def consultation_request_view(request):
 @login_required
 def consultation_success_view(request):
     return render(request, 'consultation/success.html') 
+
+#done by Krishno
