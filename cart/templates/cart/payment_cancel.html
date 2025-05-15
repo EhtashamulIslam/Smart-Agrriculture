@@ -1,0 +1,8 @@
+{% extends 'Account/base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Payment Cancelled</h2>
+    <p>Your payment was not completed.</p>
+    <a href="{% url 'cart:cart_detail' %}" class="btn btn-warning mt-3">Return to Cart</a>
+</div>
+{% endblock %}

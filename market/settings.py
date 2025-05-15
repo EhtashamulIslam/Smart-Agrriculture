@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'fertilizer',
     'crispy_forms',
     "crispy_bootstrap5",
+    'consultants',
+    'crop_recommendation',
+    'donation',
     'chatbot_ai',
     
     'Account.apps.AccountConfig',  # This is correct
@@ -244,10 +247,10 @@ MPESA_INITIATOR_USERNAME = 'testapi'
 MPESA_INITIATOR_SECURITY_CREDENTIAL = 'Safaricom999!*!'
 
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-
-
-
-
-
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 

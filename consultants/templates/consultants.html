@@ -1,0 +1,26 @@
+{% extends 'Account/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4" style="border-left: 5px solid red; padding-left: 10px;">Consultants</h2>
+    <div class="row">
+        {% for consultant in consultants %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex align-items-start">
+                    <img src="{{ consultant.photo.url }}" alt="{{ consultant.name }}" class="rounded-circle me-3" style="width:60px; height:60px; object-fit: cover;">
+                    <div>
+                        <h5 class="card-title mb-1">{{ consultant.name }}</h5>
+                        <h6 class="text-danger mb-2">{{ consultant.designation }}</h6>
+                        <p class="card-text">{{ consultant.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+            <p>No consultants yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

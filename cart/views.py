@@ -3,10 +3,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from product.models import Product
 from .models import Wishlist
-from django.http import HttpResponse
-from django_daraja.mpesa.core import MpesaClient
+
+
 
 from .models import Cart
+import stripe
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 @login_required
 def add_to_cart(request, product_id):
@@ -69,32 +76,6 @@ def decrement_units(request, cart_item_id):
     return redirect('cart:cart_detail')
 
 
-# mpesa view
-@login_required
-def mpesa_pay(request, id):
-    if request.method == 'POST':
-        phone_number = request.POST.get('phone_number')
-        cl = MpesaClient()
-
-        try:
-            cart_items = Cart.objects.filter(user_id=id)
-            total_price = 0
-
-            for cart_item in cart_items:
-                total_price += cart_item.total_price
-
-            account_reference = cart_items.first().id
-            description = f"{len(cart_items)} items in the cart. Total price: {total_price}."
-            callback_url = 'https://api.darajambili.com/express-payment'
-
-            cl.stk_push(phone_number, int(total_price), account_reference, description, callback_url)
-
-            return redirect("cart:cart_detail")
-        except Cart.DoesNotExist:
-            return HttpResponse("Cart not found")
-
-
-
 @login_required
 def add_to_wishlist(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -124,3 +105,41 @@ def wishlist_view(request):
         'wishlist_items': wishlist_items
     }
     return render(request, "wishlist/wishlist.html", context)
+
+
+@login_required
+def stripe_checkout(request):
+    cart_items = Cart.objects.filter(user=request.user)
+    if not cart_items.exists():
+        messages.error(request, "Your cart is empty.")
+        return redirect('cart:cart_detail')
+
+    total_price = sum(item.units * item.product.unit_price for item in cart_items)
+    try:
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'bdt',
+                    'product_data': {
+                        'name': 'Cart Purchase',
+                    },
+                    'unit_amount': int(total_price * 100),
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=request.build_absolute_uri('/cart/payment-success/'),
+            cancel_url=request.build_absolute_uri('/cart/payment-cancel/'),
+        )
+        return redirect(session.url)
+    except Exception as e:
+        return JsonResponse({'error': str(e)})
+    
+
+def payment_success(request):
+    Cart.objects.filter(user=request.user).delete()
+    return render(request, "cart/payment_success.html")
+
+def payment_cancel(request):
+    return render(request, "cart/payment_cancel.html")

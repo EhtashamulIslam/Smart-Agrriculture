@@ -20,4 +20,5 @@ openai~=1.75
 django-cors-headers==4.7.*
 django-widget_tweaks
 python-dotenv
-gunicorn
+
+stripe==12.1.0

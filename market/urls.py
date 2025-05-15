@@ -15,19 +15,18 @@ urlpatterns = [
     # dashboard urls
     path("dashboard/", include("dashboard.urls")),
 
-    # cart urls
-    # path("cart/", include("cart.urls")),
-   # path('wishlist/', include('cart.urls')),  # or 'wishlist.urls' if separate app
-
-    # project/urls.py
-    # path('wishlist/', include('cart.urls', namespace='cart')),  # Only do this if splitting
 
     path("cart/", include("cart.urls", namespace='cart')),
+
+    
+
     path('feedback/', include('feedback.urls')),
     path('consultation/', include('consultation.urls')),
     path('fertilizer/', include('fertilizer.urls')),
     path('blog/', include('blog.urls')),
-    
+    path('consultants/', include('consultants.urls')),
+    path('crop_recommendation/', include('crop_recommendation.urls')),
+    path('donate/', include('donation.urls')),
     path("chatbot/", include("chatbot_ai.urls", namespace='chatbot')),
 
 

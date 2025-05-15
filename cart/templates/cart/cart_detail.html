@@ -40,14 +40,13 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <form method="post" action="{% url 'cart:mpesa_pay' request.user.id %}">
+                    <form action="{% url 'cart:stripe_checkout' %}" method="POST">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <label for="phone_number">Enter Phone Number:</label>
-                            <input type="text" name="phone_number" id="phone_number" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn border-0 mt-2" style="background-color:#9cd11a; color:white">Pay with Bkash</button>
+                        <button type="submit" class="btn border-0 mt-2" style="background-color:#9cd11a; color:white">
+                              Pay with Stripe
+                        </button>
                     </form>
+
                 </div>
 
 

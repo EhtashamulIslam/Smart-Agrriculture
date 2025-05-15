@@ -1,0 +1,34 @@
+{% extends 'Account/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Soil Types and Recommended Crops</h1>
+
+    {% for soil in soils %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h3>{{ soil.name }}</h3>
+          <p>{{ soil.description }}</p>
+
+          <h5>Recommended Crops:</h5>
+          <ul>
+            {% for crop in soil.crops.all %}
+              <li><strong>{{ crop.crop_name }}</strong>: {{ crop.crop_description }}</li>
+            {% empty %}
+              <li>No crops recommended for this soil type.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% empty %}
+      <p>No soil types available.</p>
+    {% endfor %}
+  </div>
+  <div class="container mt-3 mb-5 text-center">    
+    <p style="font-family: 'Segoe UI'; color:#04371a; font-size: 20px;">"For Further details book a Consultaion"</p>
+  </div>
+
+  
+{% endblock %}
