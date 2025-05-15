@@ -32,3 +32,4 @@ def contact(request):
 # def reviews(request):
 #     reviews = Review.objects.all()
 #     return render(request, 'feedback/reviews.html', {'reviews': reviews})
+#done by Krishno

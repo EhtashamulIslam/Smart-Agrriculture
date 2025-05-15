@@ -16,3 +16,4 @@ def fertilizer_calculator(request):
         'result': result
     }
     return render(request, 'fertilizer/calculator.html', context)
+#done by Krishno
